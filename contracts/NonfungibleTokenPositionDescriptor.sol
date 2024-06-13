@@ -13,13 +13,6 @@ import "./libraries/PoolAddress.sol";
 import "./libraries/NFTDescriptor.sol";
 import "./libraries/TokenRatioSortOrder.sol";
 
-interface INFTDiscriptor {
-    function constructTokenURI(NFTDescriptor.ConstructTokenURIParams memory params)
-        external
-        pure
-        returns (string memory);
-}
-
 /// @title Describes NFT token positions
 /// @notice Produces a string containing the data URI for a JSON metadata string
 contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescriptor {
@@ -75,7 +68,7 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
         address baseTokenAddress = !_flipRatio ? token0 : token1;
         (, int24 tick,,,,,) = pool.slot0();
 
-        return INFTDiscriptor(nftDescriptor).constructTokenURI(
+        return NFTDescriptor(nftDescriptor).constructTokenURI(
             NFTDescriptor.ConstructTokenURIParams({
                 tokenId: tokenId,
                 quoteTokenAddress: quoteTokenAddress,
