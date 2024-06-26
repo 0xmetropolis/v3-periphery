@@ -28,7 +28,11 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
 
     address public immutable nftDescriptor;
 
-    constructor(address _WETH9, bytes32 _nativeCurrencyLabelBytes, address _nftDescriptor) {
+    constructor(
+        address _WETH9,
+        bytes32 _nativeCurrencyLabelBytes,
+        address _nftDescriptor
+    ) {
         WETH9 = _WETH9;
         nativeCurrencyLabelBytes = _nativeCurrencyLabelBytes;
         nftDescriptor = _nftDescriptor;

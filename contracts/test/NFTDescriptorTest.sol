@@ -29,11 +29,11 @@ contract NFTDescriptorTest is NFTDescriptor {
         return _tickToDecimalString(tick, tickSpacing, token0Decimals, token1Decimals, flipRatio);
     }
 
-    function fixedPointToDecimalString(uint160 sqrtRatioX96, uint8 token0Decimals, uint8 token1Decimals)
-        public
-        pure
-        returns (string memory)
-    {
+    function fixedPointToDecimalString(
+        uint160 sqrtRatioX96,
+        uint8 token0Decimals,
+        uint8 token1Decimals
+    ) public pure returns (string memory) {
         return _fixedPointToDecimalString(sqrtRatioX96, token0Decimals, token1Decimals);
     }
 
@@ -45,11 +45,7 @@ contract NFTDescriptorTest is NFTDescriptor {
         return _addressToString(_address);
     }
 
-    function generateSVGImage(NFTDescriptor.ConstructTokenURIParams memory params)
-        public
-        pure
-        returns (string memory)
-    {
+    function generateSVGImage(NFTDescriptor.ConstructTokenURIParams memory params) public pure returns (string memory) {
         return _generateSVGImage(params);
     }
 
