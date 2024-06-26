@@ -15,7 +15,7 @@ contract NFTDescriptorTest is NFTDescriptor {
         returns (uint256)
     {
         uint256 gasBefore = gasleft();
-        this.constructTokenURI(params);
+        constructTokenURI(params);
         return gasBefore - gasleft();
     }
 
