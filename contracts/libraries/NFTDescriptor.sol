@@ -82,7 +82,7 @@ contract NFTDescriptor {
             );
     }
 
-    function escapeQuotes(string memory symbol) public pure returns (string memory) {
+    function escapeQuotes(string memory symbol) internal pure returns (string memory) {
         bytes memory symbolBytes = bytes(symbol);
         uint8 quotesCount = 0;
         for (uint8 i = 0; i < symbolBytes.length; i++) {
@@ -236,7 +236,7 @@ contract NFTDescriptor {
         uint8 baseTokenDecimals,
         uint8 quoteTokenDecimals,
         bool flipRatio
-    ) public pure returns (string memory) {
+    ) internal pure returns (string memory) {
         if (tick == (TickMath.MIN_TICK / tickSpacing) * tickSpacing) {
             return !flipRatio ? 'MIN' : 'MAX';
         } else if (tick == (TickMath.MAX_TICK / tickSpacing) * tickSpacing) {
@@ -301,7 +301,7 @@ contract NFTDescriptor {
         uint160 sqrtRatioX96,
         uint8 baseTokenDecimals,
         uint8 quoteTokenDecimals
-    ) public pure returns (string memory) {
+    ) internal pure returns (string memory) {
         uint256 adjustedSqrtRatioX96 = adjustForDecimalPrecision(sqrtRatioX96, baseTokenDecimals, quoteTokenDecimals);
         uint256 value = FullMath.mulDiv(adjustedSqrtRatioX96, adjustedSqrtRatioX96, 1 << 64);
 
@@ -358,7 +358,7 @@ contract NFTDescriptor {
 
     // @notice Returns string as decimal percentage of fee amount.
     // @param fee fee amount
-    function feeToPercentString(uint24 fee) public pure returns (string memory) {
+    function feeToPercentString(uint24 fee) internal pure returns (string memory) {
         if (fee == 0) {
             return '0%';
         }
@@ -402,11 +402,11 @@ contract NFTDescriptor {
         return generateDecimalString(params);
     }
 
-    function addressToString(address addr) public pure returns (string memory) {
+    function addressToString(address addr) internal pure returns (string memory) {
         return (uint256(addr)).toHexString(20);
     }
 
-    function generateSVGImage(ConstructTokenURIParams memory params) public pure returns (string memory svg) {
+    function generateSVGImage(ConstructTokenURIParams memory params) internal pure returns (string memory svg) {
         NFTSVG.SVGParams memory svgParams =
             NFTSVG.SVGParams({
                 quoteToken: addressToString(params.quoteTokenAddress),
@@ -459,7 +459,7 @@ contract NFTDescriptor {
         return (n.sub(inMn).mul(outMx.sub(outMn)).div(inMx.sub(inMn)).add(outMn)).toString();
     }
 
-    function tokenToColorHex(uint256 token, uint256 offset) public pure returns (string memory str) {
+    function tokenToColorHex(uint256 token, uint256 offset) internal pure returns (string memory str) {
         return string((token >> offset).toHexStringNoPrefix(3));
     }
 
@@ -467,7 +467,7 @@ contract NFTDescriptor {
         uint256 tokenAddress,
         uint256 offset,
         uint256 tokenId
-    ) public pure returns (uint256) {
+    ) internal pure returns (uint256) {
         return (sliceTokenHex(tokenAddress, offset) * tokenId) % 255;
     }
 
