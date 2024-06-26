@@ -9,15 +9,6 @@ import "../libraries/HexStrings.sol";
 contract NFTDescriptorTest is NFTDescriptor {
     using HexStrings for uint256;
 
-    function constructTokenURI(NFTDescriptor.ConstructTokenURIParams calldata params)
-        public
-        pure
-        override
-        returns (string memory)
-    {
-        return constructTokenURI(params);
-    }
-
     function getGasCostOfConstructTokenURI(NFTDescriptor.ConstructTokenURIParams calldata params)
         public
         view

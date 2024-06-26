@@ -31,14 +31,15 @@ const completeFixture: Fixture<{
   const nftDescriptorLibraryFactory = await ethers.getContractFactory('NFTDescriptor')
   const nftDescriptorLibrary = await nftDescriptorLibraryFactory.deploy()
   const positionDescriptorFactory = await ethers.getContractFactory('NonfungibleTokenPositionDescriptor', {
-    libraries: {
-      NFTDescriptor: nftDescriptorLibrary.address,
-    },
+    // libraries: {
+    //   NFTDescriptor: nftDescriptorLibrary.address,
+    // },
   })
   const nftDescriptor = (await positionDescriptorFactory.deploy(
     tokens[0].address,
     // 'ETH' as a bytes32 string
-    '0x4554480000000000000000000000000000000000000000000000000000000000'
+    '0x4554480000000000000000000000000000000000000000000000000000000000',
+    nftDescriptorLibrary.address
   )) as NonfungibleTokenPositionDescriptor
 
   const positionManagerFactory = await ethers.getContractFactory('MockTimeNonfungiblePositionManager')

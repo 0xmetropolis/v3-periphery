@@ -54,22 +54,23 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
         override
         returns (string memory)
     {
-        (, , address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper , , , , , ) =
+        (, , address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, , , , , ) =
             positionManager.positions(tokenId);
 
-        IUniswapV3Pool pool = IUniswapV3Pool(
-            PoolAddress.computeAddress(
-                positionManager.factory(),
-                PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee})
-            )
-        );
+        IUniswapV3Pool pool = 
+            IUniswapV3Pool(
+                PoolAddress.computeAddress(
+                    positionManager.factory(),
+                    PoolAddress.PoolKey({token0: token0, token1: token1, fee: fee})
+                )
+            );
 
         bool _flipRatio = flipRatio(token0, token1, ChainId.get());
         address quoteTokenAddress = !_flipRatio ? token1 : token0;
         address baseTokenAddress = !_flipRatio ? token0 : token1;
         (, int24 tick, , , , , ) = pool.slot0();
 
-        return 
+        return
             NFTDescriptor(nftDescriptor).constructTokenURI(
                 NFTDescriptor.ConstructTokenURIParams({
                     tokenId: tokenId,
@@ -94,7 +95,11 @@ contract NonfungibleTokenPositionDescriptor is INonfungibleTokenPositionDescript
             );
     }
 
-    function flipRatio(address token0, address token1, uint256 chainId) public view returns (bool) {
+    function flipRatio(
+        address token0,
+        address token1,
+        uint256 chainId
+    ) public view returns (bool) {
         return tokenRatioPriority(token0, chainId) > tokenRatioPriority(token1, chainId);
     }
 

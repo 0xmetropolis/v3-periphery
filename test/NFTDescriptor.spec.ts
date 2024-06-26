@@ -29,9 +29,9 @@ describe('NFTDescriptor', () => {
 
     const tokenFactory = await ethers.getContractFactory('TestERC20Metadata')
     const NFTDescriptorFactory = await ethers.getContractFactory('NFTDescriptorTest', {
-      libraries: {
-        NFTDescriptor: nftDescriptorLibrary.address,
-      },
+      // libraries: {
+      //   NFTDescriptor: nftDescriptorLibrary.address,
+      // },
     })
     const nftDescriptor = (await NFTDescriptorFactory.deploy()) as NFTDescriptorTest
     const TestERC20Metadata = tokenFactory.deploy(constants.MaxUint256.div(2), 'Test ERC20', 'TEST1')

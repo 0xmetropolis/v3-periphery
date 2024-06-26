@@ -198,14 +198,15 @@ describe('NonfungibleTokenPositionDescriptor', () => {
       const nftDescriptorLibraryFactory = await ethers.getContractFactory('NFTDescriptor')
       const nftDescriptorLibrary = await nftDescriptorLibraryFactory.deploy()
       const positionDescriptorFactory = await ethers.getContractFactory('NonfungibleTokenPositionDescriptor', {
-        libraries: {
-          NFTDescriptor: nftDescriptorLibrary.address,
-        },
+        // libraries: {
+        //   NFTDescriptor: nftDescriptorLibrary.address,
+        // },
       })
       const nftDescriptor = (await positionDescriptorFactory.deploy(
         weth9.address,
         // 'FUNNYMONEY' as a bytes32 string
-        '0x46554e4e594d4f4e455900000000000000000000000000000000000000000000'
+        '0x46554e4e594d4f4e455900000000000000000000000000000000000000000000',
+        nftDescriptorLibrary.address
       )) as NonfungibleTokenPositionDescriptor
 
       const metadata = extractJSONFromURI(await nftDescriptor.tokenURI(nft.address, 1))
