@@ -2,9 +2,9 @@
 pragma solidity =0.7.6;
 pragma abicoder v2;
 
-import "../libraries/NFTDescriptor.sol";
-import "../libraries/NFTSVG.sol";
-import "../libraries/HexStrings.sol";
+import '../libraries/NFTDescriptor.sol';
+import '../libraries/NFTSVG.sol';
+import '../libraries/HexStrings.sol';
 
 contract NFTDescriptorTest is NFTDescriptor {
     using HexStrings for uint256;

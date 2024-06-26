@@ -424,12 +424,12 @@ contract NFTDescriptor {
                 color1: _tokenToColorHex(uint256(params.baseTokenAddress), 136),
                 color2: _tokenToColorHex(uint256(params.quoteTokenAddress), 0),
                 color3: _tokenToColorHex(uint256(params.baseTokenAddress), 0),
-                x1: scale(_sliceTokenHex(uint256(params.quoteTokenAddress), 16), 0, 255, 16, 274),
-                y1: scale(_sliceTokenHex(uint256(params.baseTokenAddress), 16), 0, 255, 100, 484),
-                x2: scale(_sliceTokenHex(uint256(params.quoteTokenAddress), 32), 0, 255, 16, 274),
-                y2: scale(_sliceTokenHex(uint256(params.baseTokenAddress), 32), 0, 255, 100, 484),
-                x3: scale(_sliceTokenHex(uint256(params.quoteTokenAddress), 48), 0, 255, 16, 274),
-                y3: scale(_sliceTokenHex(uint256(params.baseTokenAddress), 48), 0, 255, 100, 484)
+                x1: scale(_getCircleCoord(uint256(params.quoteTokenAddress), 16, params.tokenId), 0, 255, 16, 274),
+                y1: scale(_getCircleCoord(uint256(params.baseTokenAddress), 16, params.tokenId), 0, 255, 100, 484),
+                x2: scale(_getCircleCoord(uint256(params.quoteTokenAddress), 32, params.tokenId), 0, 255, 16, 274),
+                y2: scale(_getCircleCoord(uint256(params.baseTokenAddress), 32, params.tokenId), 0, 255, 100, 484),
+                x3: scale(_getCircleCoord(uint256(params.quoteTokenAddress), 48, params.tokenId), 0, 255, 16, 274),
+                y3: scale(_getCircleCoord(uint256(params.baseTokenAddress), 48, params.tokenId), 0, 255, 100, 484)
             });
 
         return NFTSVG.generateSVG(svgParams);
@@ -461,6 +461,14 @@ contract NFTDescriptor {
 
     function _tokenToColorHex(uint256 token, uint256 offset) internal pure returns (string memory str) {
         return string((token >> offset).toHexStringNoPrefix(3));
+    }
+
+    function _getCircleCoord(
+        uint256 tokenAddress,
+        uint256 offset,
+        uint256 tokenId
+    ) internal pure returns (uint256) {
+        return (_sliceTokenHex(tokenAddress, offset) * tokenId) % 255;
     }
 
     function _sliceTokenHex(uint256 token, uint256 offset) internal pure returns (uint256) {
